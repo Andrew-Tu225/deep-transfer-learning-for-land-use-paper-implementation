@@ -1,0 +1,11 @@
+# Core — model training (CPU build locally; Kaggle/Colab provide CUDA builds)
+torch
+torchvision
+numpy
+
+# Evaluation & visualization
+scikit-learn        # confusion matrix, per-class metrics
+matplotlib          # loss/accuracy curves, confusion matrix plots
+
+# Testing
+pytest
