@@ -1,0 +1,29 @@
+# Claude Code session files
+.claude/
+CLAUDE.md
+
+# Virtual environment
+.venv/
+
+# Dataset (download separately — see README)
+data/
+
+# Training outputs: checkpoints, curves, metrics
+outputs/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
