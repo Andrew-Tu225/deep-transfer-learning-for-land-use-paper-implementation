@@ -1,6 +1,6 @@
 import torch
 
-from torchvision.transforms import transforms
+from torchvision.transforms import v2
 from torchvision.datasets import ImageFolder
 
 import numpy as np
@@ -52,16 +52,25 @@ def _build_transform(augment: bool):
     pretrained weights were trained with.
 
     Args:
-        augment: When True, prepend the paper's data augmentation steps
-            (Gaussian blur, horizontal/vertical flip, rotation). Not yet
-            implemented (Task 2) — currently returns the plain pipeline
-            regardless. Validation loaders must always pass False.
+        augment: When True, prepend the augmentation steps used in the
+            authors' reference notebooks (random horizontal flip, rotation,
+            random vertical flip) — matches the pipeline that produced the
+            paper's reported 98.55% / 99.17% with-augmentation results.
+            Validation loaders must always pass False.
 
     Returns:
-        A torchvision ``transforms.Compose`` pipeline.
+        A torchvision ``transforms.v2.Compose`` pipeline.
     """
-    return transforms.Compose([
-        transforms.Resize((224, 224)),
-        transforms.ToTensor(),
-        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+    augmentations = [
+        v2.RandomHorizontalFlip(p=0.5),
+        v2.RandomRotation(20),
+        v2.RandomVerticalFlip(p=0.5),
+    ] if augment else []
+
+    return v2.Compose([
+        v2.Resize((224, 224)),
+        *augmentations,
+        v2.ToImage(),
+        v2.ToDtype(torch.float32, scale=True),
+        v2.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
     ])
