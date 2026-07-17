@@ -6,6 +6,7 @@ numpy
 # Evaluation & visualization
 scikit-learn        # confusion matrix, per-class metrics
 matplotlib          # loss/accuracy curves, confusion matrix plots
+tqdm                # training/validation progress bars (Colab-aware via tqdm.auto)
 
 # Testing
 pytest
