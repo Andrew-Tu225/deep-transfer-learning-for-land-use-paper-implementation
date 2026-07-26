@@ -14,8 +14,11 @@ def _build_head(in_features: int, num_classes: int) -> nn.Sequential:
 
     Matches the head shape used in the authors' reference notebooks
     (https://github.com/raoofnaushad/EuroSAT_LULC), since the paper text
-    doesn't specify exact FC sizes. LogSoftmax output means this must be
-    paired with NLLLoss, not CrossEntropyLoss.
+    doesn't specify exact FC sizes. The authors pair this LogSoftmax output
+    with CrossEntropyLoss (not NLLLoss) — technically a redundant log-softmax
+    (CrossEntropyLoss applies its own internally), but that's the exact
+    combination that produced the paper's reported numbers, so it's kept
+    as-is for faithful reproduction rather than "corrected" to NLLLoss.
     """
     return nn.Sequential(
         nn.Linear(in_features, 256),
